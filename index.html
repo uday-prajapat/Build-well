@@ -37,7 +37,7 @@
                             </div>
                         </li>
                         <li>
-                            <img src="./image/header-icon2.png" alt="header-icon">
+                            <img src="./image/clock.png" alt="header-icon">
                             <div class="custom ">
                                 CUSTOM SUPPORT & SALE
                                 <h4>+7-495-1234567</h4>
@@ -170,7 +170,7 @@
 
 </div>
 </div>
-    <div class="continer">
+    <div class="continer fadein">
 
         <div class="tradition">
 
@@ -238,7 +238,7 @@
 
 
 
-    <div class="buildwall-image">
+    <div class="buildwall-image fadein">
         <div class="continer">
             <div class="buildwall">
 
@@ -255,7 +255,7 @@
     </div>
 
 
-    <div class="continer">
+    <div class="continer fadein">
 
         <div class="core-values">
             <span>CORE VALUES</span>
@@ -306,7 +306,7 @@
     </div>
 
 
-    <div class="continer">
+    <div class="continer fadein ">
 
         <div class="rank">
             <ul>
@@ -366,7 +366,7 @@
         </div>
     </div>
 
-    <div class="our-work">
+    <div class="our-work fadein">
         <span>OUR WORKS
         </span>
         <h2>WHY PEOPLE CHOOSE US
@@ -694,11 +694,11 @@
     </div>
     </div>
 
-  
+  </div>
 
 
 
-    <div class="buildwall-backgruond">
+    <div class="buildwall-backgruond  fadein">
         <div class="continer">
             <div class="buildwall2">
 
@@ -715,7 +715,7 @@
     </div>
 
 
-    <div class="continer">
+    <div class="continer fadein">
 
         <div class="provide">
             <span>WE PROVIDE</span>
@@ -803,7 +803,7 @@
     </div>
 
 
-    <div class="community-backgroung">
+    <div class="community-backgroung  fadein">
 
         <div class="continer">
             <div class="community">
@@ -884,11 +884,9 @@
         </div>
     </div>
 
-    <div>
+   
 
-    </div>
-
-    <div class="continer">
+    <div class="continer  fadein">
 
         <div class="latest-news">
             <span>LATEST NEWS</span>
@@ -952,7 +950,7 @@
     </div>
 
 
-        <div class="newsletter-image">
+        <div class="newsletter-image fadein">
             <div class="continer">
                 <div class="newsletter">
     
@@ -974,7 +972,7 @@
         </div>
    
 
-    <div class="futter-background">
+    <div class="futter-background fadein">
 <div class="continer">
 <div class="futter-text">
 <div class="about-company">
@@ -1177,6 +1175,121 @@ autoplay: true,
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
 	})
+
+
+
+// left to right animation
+
+
+// fade in grid items  ==================================
+
+$(document).on("scroll", function () {
+    var pageTop = $(document).scrollTop()
+    var pageBottom = pageTop + $(window).height()
+    var tags = $(".fadein")
+
+    for (var i = 0; i < tags.length; i++) {
+      var tag = tags[i]
+
+      if ($(tag).offset().top < pageBottom) {
+        $(tag).addClass("visible")
+      } else {
+        $(tag).removeClass("visible")
+      }
+    }
+  })
+
+  $(function() {
+  
+  var html = $('html');
+  // Detections
+  if (!("ontouchstart" in window)) {
+    html.addClass("noTouch");
+  }
+  if ("ontouchstart" in window) {
+    html.addClass("isTouch");
+  }
+  if ("ontouchstart" in window) {
+    html.addClass("isTouch");
+  }
+  if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    if (navigator.appVersion.indexOf("Trident") === -1) {
+      html.addClass("isEDGE");
+    } else {
+      html.addClass("isIE isIE11");
+    }
+  }
+  if (navigator.appVersion.indexOf("MSIE") !== -1) {
+    html.addClass("isIE");
+  }
+  if (
+    navigator.userAgent.indexOf("Safari") != -1 &&
+    navigator.userAgent.indexOf("Chrome") == -1
+  ) {
+    html.addClass("isSafari");
+  }
+
+  // On Screen
+
+  $.fn.isOnScreen = function() {
+    var elementTop = $(this).offset().top,
+      elementBottom = elementTop + $(this).outerHeight(),
+      viewportTop = $(window).scrollTop(),
+      viewportBottom = viewportTop + $(window).height();
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+  };
+
+  function detection() {
+    for (var i = 0; i < items.length; i++) {
+      var el = $(items[i]);
+
+      if (el.isOnScreen()) {
+        el.addClass("in-view");
+      } else {
+        el.removeClass("in-view");
+      }
+    }
+  }
+
+  var items = document.querySelectorAll(
+    "*[data-animate-in], *[data-detect-viewport]"
+  ),
+    waiting = false,
+    w = $(window);
+
+  w.on("resize scroll", function() {
+    if (waiting) {
+      return;
+    }
+    waiting = true;
+    detection();
+
+    setTimeout(function() {
+      waiting = false;
+    }, 100);
+  });
+
+  $(document).ready(function() {
+    setTimeout(function() {
+      detection();
+    }, 500);
+
+    for (var i = 0; i < items.length; i++) {
+      var d = 0,
+        el = $(items[i]);
+      if (items[i].getAttribute("data-animate-in-delay")) {
+        d = items[i].getAttribute("data-animate-in-delay") / 1000 + "s";
+      } else {
+        d = 0;
+      }
+      el.css("transition-delay", d);
+    }
+  });
+});
+// left to right animation
+
+
+
     </script>
 </body>
 
